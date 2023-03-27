@@ -10,5 +10,19 @@ services:
       - 8001:8000
     env_file:
       - .env
-    # depends_on:
-    #   - movie_db
+    depends_on:
+      - postgres
+    networks:
+      - docs-fastapi
+  postgres:
+    image: postgres
+    container_name: postgres
+    env_file:
+      - .env
+    ports:
+      - "3306:3306"
+    networks:
+      - docs-fastapi
+
+networks:
+  docs-fastapi:
