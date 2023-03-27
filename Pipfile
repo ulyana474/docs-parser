@@ -10,6 +10,7 @@ uvicorn = {extras = ["standard"], version = "*"}
 asyncpg = "*"
 alembic = "*"
 sqlmodel = "*"
+psycopg2 = "*"
 
 [dev-packages]
 
