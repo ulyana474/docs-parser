@@ -1,1 +1,1 @@
-uvicorn auth.app.main:app --reload --host 0.0.0.0 --port 8000
+alembic upgrade head && uvicorn auth.app.main:app --reload --host 0.0.0.0 --port 8000

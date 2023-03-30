@@ -11,6 +11,9 @@ asyncpg = "*"
 alembic = "*"
 sqlmodel = "*"
 psycopg2 = "*"
+pyjwt = "*"
+passlib = {extras = ["bcrypt"], version = "*"}
+motor = "*"
 
 [dev-packages]
 

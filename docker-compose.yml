@@ -1,30 +1,53 @@
 services:
   auth:
     build: 
-      context: .
       dockerfile: auth/Dockerfile
+    container_name: auth
     entrypoint: sh auth/entrypoint.sh
-    volumes:
-      - "/etc/localtime:/etc/localtime:ro"
-      - .:/code
     ports:
       - 8001:8000
     env_file:
       - .env
+    volumes:
+      - .:/code
+      - /var/lib/postgresql/data:/var/lib/postgresql/data
     depends_on:
       - postgres
     networks:
       - docs-fastapi
 
   postgres:
-    image: postgres
+    build: auth/app/database
     container_name: postgres
     env_file:
       - .env
     ports:
-      - "5432:5432"
+      - 5432:5432
+    volumes:
+      - .:/code
+      - /var/lib/postgresql/data:/var/lib/postgresql/data
     networks:
       - docs-fastapi
+
+  core:
+    build:
+      dockerfile: core/Dockerfile
+    container_name: core
+    entrypoint: sh ./core/entrypoint.sh
+    ports:
+      - 8002:8000
+    env_file:
+      - .env
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    env_file:
+      - .env
+    ports:
+      - 27017:27017
 
 networks:
   docs-fastapi:
