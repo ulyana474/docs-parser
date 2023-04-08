@@ -9,13 +9,8 @@ from auth.app.utils.generate_token import (create_access_token,
                                            create_refresh_token)
 from auth.app.utils.hash_password import get_password_hash
 from auth.app.database.posgresql import get_session
-# from auth.dependencies import check_token
 
 router = APIRouter()
-
-# @router.get('/hello')
-# async def hello():
-#     return user
 
 
 @router.post('/register', response_model=User)
@@ -40,11 +35,6 @@ async def login(payload: UserLogin, response: Response, session: AsyncSession = 
     refresh_token = create_refresh_token({'user': exist_user.mappings().all()})
     return {'access token': access_token, 'refresh token': refresh_token}
 
-
-# @router.get('/check_core')
-# async def check_core(authorization: str = Header(None)):
-#     await check_token(authorization)
-#     return Response(status_code=status.HTTP_200_OK)
 
     
 
