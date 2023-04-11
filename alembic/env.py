@@ -9,7 +9,7 @@ from sqlmodel import SQLModel                       # NEW
 
 from alembic import context
 
-from auth.app.models.user import User, Base               # NEW
+from auth.app.models.user import Base            # NEW
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
