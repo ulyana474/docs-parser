@@ -11,6 +11,6 @@ class Article(Base):
     author = Column(String)
     title = Column(String, index=True, unique=True)
     content = Column(String)
-    
+
     class Config:
         orm_mode = True
