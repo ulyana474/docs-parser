@@ -1,5 +1,6 @@
 from abc import abstractmethod
 
+
 class BaseRepository:
     @abstractmethod
     async def get(self):

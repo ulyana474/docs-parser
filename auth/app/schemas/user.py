@@ -1,16 +1,17 @@
 from enum import Enum
+
 from pydantic import BaseModel
 
 
 class UserRoleEnum(str, Enum):
     admin = "admin"
     user = "user"
-   
+
 
 class User(BaseModel):
     username: str = None
     password: str = None
-    role: UserRoleEnum = 'user'
+    role: UserRoleEnum = "user"
 
 
 class UserInDB(User):
