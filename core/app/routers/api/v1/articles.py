@@ -31,4 +31,10 @@ async def get_docs(docs=Depends(Repository.get)):
 
 @router.post("/insert-docs", status_code=status.HTTP_201_CREATED)
 async def insert_docs(res=Depends(Repository.create)):
-    return {'docs': 'inserted'}
+    return {'inserted': res}
+
+
+@router.delete("/delete-all-docs", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_all_docs(res=Depends(Repository.delete_all)):
+    return {'deleted': res}
+

@@ -9,6 +9,7 @@ from fastapi.encoders import jsonable_encoder
 
 
 class Repository(BaseRepository):
+
     @staticmethod
     async def get(db: AsyncIOMotorClient = Depends(get_database)) -> List:
         collection = db.get_collection('docs')
@@ -27,8 +28,16 @@ class Repository(BaseRepository):
             await collection.insert_one(jsonable_encoder(doc))
         return new_docs
 
-    async def update(self):
+    @staticmethod
+    async def update(db: AsyncIOMotorClient = Depends(get_database)):
         pass
 
-    async def delete(self):
+    @staticmethod
+    async def delete(db: AsyncIOMotorClient = Depends(get_database)):
         pass
+
+    @staticmethod
+    async def delete_all(db: AsyncIOMotorClient = Depends(get_database)):
+        collection = db.get_collection('docs')
+        result = await collection.delete_many({})
+        return result.deleted_count
