@@ -7,9 +7,8 @@ Base = declarative_base()
 class Article(Base):
     __tablename__ = "articles"
 
-    id = Column(Integer, primary_key=True, index=True)
     author = Column(String)
-    title = Column(String, index=True, unique=True)
+    title = Column(String, primary_key=True, index=True, unique=True)
     content = Column(String)
 
     class Config:

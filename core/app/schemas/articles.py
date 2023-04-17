@@ -1,10 +1,7 @@
-from uuid import UUID
-
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class Article(BaseModel):
-    id: UUID
     author: str | list = None
     title: str
     content: str

@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+from core.app.models.articles import Article
 
 
 def parse_articles() -> list:
@@ -36,6 +37,6 @@ def parse_articles() -> list:
             contents.append(content)
 
     for title, name, content in zip(titles, names, contents):
-        obj = {title: (name, content)}
+        obj = Article(title=title, author=name, content=content)
         objects.append(obj)
     return objects

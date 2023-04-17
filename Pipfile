@@ -16,6 +16,7 @@ passlib = {extras = ["bcrypt"], version = "*"}
 motor = "*"
 beautifulsoup4 = "*"
 requests = "*"
+mongo = "*"
 
 [dev-packages]
 
