@@ -18,6 +18,7 @@ router = APIRouter()
 
 
 @router.get("/parse")
+@router.get("/parse")
 async def parse():
     parsed_data = parse_articles()
     print(parsed_data)
@@ -45,7 +46,7 @@ async def update_docs(docs_id: str, docs=Depends(Repository.update)):
 
 
 @router.delete("/delete-docs-by-id/{docs_id}", status_code=status.HTTP_204_NO_CONTENT)
-async def delete_all_docs(docs_id: str, res=Depends(Repository.delete_by_id)):
+async def delete_docs_by_id(docs_id: str, res=Depends(Repository.delete_by_id)):
     return {'deleted': res}
 
 
