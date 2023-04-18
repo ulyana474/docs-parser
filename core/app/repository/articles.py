@@ -50,7 +50,7 @@ class Repository(BaseRepository):
         collection = Repository.get_collection(db)
         docs = {k: v for k, v in docs.dict().items() if v is not None}
         print(docs)
-        update_result = await collection.update_one({"_id": docs_id}, {"$set": docs})
+        update_result = await collection.update_one({"_id": ObjectId(docs_id)}, {"$set": docs})
         return update_result
 
     @staticmethod

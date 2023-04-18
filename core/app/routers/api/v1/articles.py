@@ -40,7 +40,7 @@ async def insert_docs(res=Depends(Repository.create)):
 
 
 @router.put("/update-docs/{docs_id}", status_code=status.HTTP_200_OK, response_model=Article)
-async def update_docs(docs=Depends(Repository.update)):
+async def update_docs(docs_id: str, docs=Depends(Repository.update)):
     return {'updated': docs}
 
 
