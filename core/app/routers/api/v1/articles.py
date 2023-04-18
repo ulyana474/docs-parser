@@ -44,6 +44,11 @@ async def update_docs(docs_id: str, docs=Depends(Repository.update)):
     return {'updated': docs}
 
 
+@router.delete("/delete-docs-by-id/{docs_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_all_docs(docs_id: str, res=Depends(Repository.delete_by_id)):
+    return {'deleted': res}
+
+
 @router.delete("/delete-all-docs", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_all_docs(res=Depends(Repository.delete_all)):
     return {'deleted': res}

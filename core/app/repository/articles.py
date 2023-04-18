@@ -35,7 +35,7 @@ class Repository(BaseRepository):
         if (existing_docs := await collection.find_one({'_id': ObjectId(docs_id)})) is not None:
             return existing_docs
         else:
-            raise HTTPException(status_code=404, content="not found")  
+            raise HTTPException(status_code=404)  
 
     @staticmethod
     async def create(db: AsyncIOMotorClient = Depends(get_database)):
@@ -49,13 +49,14 @@ class Repository(BaseRepository):
     async def update(docs_id: str, docs: Article = Body(...), db: AsyncIOMotorClient = Depends(get_database)):
         collection = Repository.get_collection(db)
         docs = {k: v for k, v in docs.dict().items() if v is not None}
-        print(docs)
         update_result = await collection.update_one({"_id": ObjectId(docs_id)}, {"$set": docs})
         return update_result
 
     @staticmethod
-    async def delete(db: AsyncIOMotorClient = Depends(get_database)):
-        pass
+    async def delete_by_id(docs_id: str, db: AsyncIOMotorClient = Depends(get_database)):
+        collection = Repository.get_collection(db)
+        result = await collection.delete_one({"_id": ObjectId(docs_id)})
+        return result.deleted_count
 
     @staticmethod
     async def delete_all(db: AsyncIOMotorClient = Depends(get_database)):
