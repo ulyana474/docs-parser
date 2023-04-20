@@ -18,7 +18,6 @@ router = APIRouter()
 
 
 @router.get("/parse")
-@router.get("/parse")
 async def parse():
     parsed_data = parse_articles()
     print(parsed_data)

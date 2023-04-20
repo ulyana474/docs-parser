@@ -17,6 +17,7 @@ motor = "*"
 beautifulsoup4 = "*"
 requests = "*"
 mongo = "*"
+apscheduler = "*"
 
 [dev-packages]
 
