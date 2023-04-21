@@ -1,20 +1,19 @@
 from typing import Annotated, List
 
-from fastapi import APIRouter, Depends, status, Response
+from fastapi import APIRouter, Depends, status, HTTPException
 from fastapi.responses import JSONResponse
+
 from core.app.dependencies.auth import has_access
-from core.app.utils.parse import parse_articles
 from core.app.repository.articles import Repository
 from core.app.schemas.articles import Article
-from core.app.repository.articles import Repository
+from core.app.utils.parse import parse_articles
+
+router = APIRouter(prefix='/docs', tags=["docs"])
 
 
-router = APIRouter()
-
-
-# @router.get("/me")
-# async def me(token: Annotated[str, Depends(has_access)]):
-#     return {"token": "works"}
+@router.get("/me")
+async def me(token: Annotated[str, Depends(has_access)]):
+    return {"token": "works"}
 
 
 @router.get("/parse")
@@ -24,32 +23,33 @@ async def parse():
     return {"data": "ok"}
 
 
-@router.get("/get-docs", status_code=status.HTTP_200_OK)
+@router.get("/", status_code=status.HTTP_200_OK)
 async def get_docs(docs=Depends(Repository.get)):
-    return {'docs': docs}
+    return {"docs": docs}
 
 
-@router.get("/get-docs-by-id/{docs_id}", status_code=status.HTTP_200_OK, response_model=Article)
+@router.get(
+    "/{docs_id}", status_code=status.HTTP_200_OK, response_model=Article
+)
 async def get_docs_by_id(docs_id: str, docs=Depends(Repository.get_by_id)):
     return docs
 
 
-@router.post("/insert-docs", status_code=status.HTTP_201_CREATED)
+@router.post("/", status_code=status.HTTP_201_CREATED)
 async def insert_docs(res=Depends(Repository.create)):
-    return {'inserted': res}
+    return {"inserted": res}
 
 
-@router.put("/update-docs/{docs_id}", status_code=status.HTTP_200_OK, response_model=Article)
+@router.put("/{docs_id}", status_code=status.HTTP_200_OK)
 async def update_docs(docs_id: str, docs=Depends(Repository.update)):
-    return {'updated': docs}
+    return {"updated": docs}
 
 
-@router.delete("/delete-docs-by-id/{docs_id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/{docs_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_docs_by_id(docs_id: str, res=Depends(Repository.delete_by_id)):
-    return {'deleted': res}
+    return {"deleted": res}
 
 
-@router.delete("/delete-all-docs", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/all", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_all_docs(res=Depends(Repository.delete_all)):
-    return {'deleted': res}
-
+    return {"deleted": res}

@@ -21,9 +21,10 @@ def create_access_token(data: dict):
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="error")
 
     dict_encode = jsonable_encoder(user)
-    to_encode = json.dumps(dict_encode.get("username", None))
+    to_encode_username = json.dumps(dict_encode.get("username", None))
+    to_encode_role = json.dumps(dict_encode.get("role", 'user'))
     encoded_jwt = jwt.encode(
-        {"username": to_encode}, os.getenv("SECRET_KEY", " "), algorithm="HS256"
+        {"username": to_encode_username, "role": to_encode_role}, os.getenv("SECRET_KEY", " "), algorithm="HS256"
     )
     return encoded_jwt
 

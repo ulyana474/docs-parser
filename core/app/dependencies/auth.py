@@ -23,5 +23,6 @@ async def has_access(credentials: HTTPAuthorizationCredentials = Depends(securit
             },
         )
         print("payload => ", payload)
+        return payload
     except PyJWTError as e:  # catches any exception
         raise HTTPException(status_code=401, detail=str(e))

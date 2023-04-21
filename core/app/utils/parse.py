@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-from core.app.models.articles import Article
+from core.app.schemas.articles import Article
 
 
 def parse_articles() -> list:

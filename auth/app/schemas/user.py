@@ -11,7 +11,7 @@ class UserRoleEnum(str, Enum):
 class User(BaseModel):
     username: str = None
     password: str = None
-    role: UserRoleEnum = "user"
+    role: str = UserRoleEnum.user
 
 
 class UserInDB(User):

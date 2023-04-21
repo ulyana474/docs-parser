@@ -18,6 +18,7 @@ beautifulsoup4 = "*"
 requests = "*"
 mongo = "*"
 apscheduler = "*"
+pytz = "*"
 
 [dev-packages]
 
